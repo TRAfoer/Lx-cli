@@ -31,6 +31,25 @@ func playlistCommand(ctx context.Context, e *engine.Engine, args []string, o opt
 	}
 	name := args[0]
 	switch sub {
+	case "search":
+		page, err := number(o.values["page"], 1, 1, 1000000)
+		if err != nil {
+			return nil, err
+		}
+		limit, err := number(o.values["limit"], 20, 1, 100)
+		if err != nil {
+			return nil, err
+		}
+		return e.Catalog.SearchPlaylists(ctx, o.values["source"], strings.Join(args, " "), page, limit)
+	case "inspect":
+		p, err := e.Catalog.ImportPlaylist(ctx, strings.Join(args, " "))
+		if err != nil {
+			return nil, err
+		}
+		if err = e.Store.CacheSongs(p.Songs); err != nil {
+			return nil, err
+		}
+		return p, nil
 	case "create":
 		desc := ""
 		if len(args) > 1 {

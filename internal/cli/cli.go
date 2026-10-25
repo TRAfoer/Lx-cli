@@ -28,6 +28,8 @@ const help = `用法: Lx-Cli [--config FILE] <命令> [--json] [--no-color]
   repeat [off|one|all] / shuffle [on|off]
   queue show/add/insert/remove/clear/move / queue play <位置（从1开始）>
   playlist list/show/create/delete/rename/add/remove/play
+  playlist search <关键词> [--source all|wy|tx] [--page N] [--limit N]
+  playlist inspect <歌单链接|分享文字>
   playlist import <歌单链接|分享文字|JSON/M3U文件> [--name 名称]
   playlist export <名称> [--format json|m3u] [--output 文件]
   fav [add/remove/play] / history [--limit N]
