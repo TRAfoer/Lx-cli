@@ -256,6 +256,17 @@ func (m *manager) dispatch(ctx context.Context, r RPCRequest) (any, error) {
 	case "prev":
 		err := m.advance(ctx, -1, false)
 		return ok(), err
+	case "queue_play":
+		m.mu.Lock()
+		if r.Index < 0 || r.Index >= len(m.q.Songs) {
+			m.mu.Unlock()
+			return nil, errors.New("队列位置超出范围")
+		}
+		q := model.Queue{Songs: append([]model.Song{}, m.q.Songs...), CurrentIndex: r.Index}
+		m.intent++
+		gen, intent := m.generation, m.intent
+		m.mu.Unlock()
+		return ok(), m.loadQueue(ctx, q, "", gen, intent)
 	case "queue_add", "queue_insert":
 		m.mu.Lock()
 		defer m.mu.Unlock()

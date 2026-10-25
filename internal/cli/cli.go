@@ -26,7 +26,7 @@ const help = `用法: Lx-Cli [--config FILE] <命令> [--json] [--no-color]
   state / now / pause / resume / stop / next / prev / quit
   seek <秒|+秒|mm:ss|百分比> / volume [0..100|+N|-N]
   repeat [off|one|all] / shuffle [on|off]
-  queue show/add/insert/remove/clear/move
+  queue show/add/insert/remove/clear/move / queue play <位置（从1开始）>
   playlist list/show/create/delete/rename/add/remove/play
   playlist import <歌单链接|分享文字|JSON/M3U文件> [--name 名称]
   playlist export <名称> [--format json|m3u] [--output 文件]
@@ -461,7 +461,7 @@ func queueCommand(ctx context.Context, e *engine.Engine, args []string) (any, er
 		return rpc(ctx, e, engine.RPCRequest{Op: "queue_" + sub, Songs: songs}, true)
 	case "clear":
 		return rpc(ctx, e, engine.RPCRequest{Op: "queue_clear"}, true)
-	case "remove", "move":
+	case "remove", "move", "play":
 		if err := need(args, 1); err != nil {
 			return nil, err
 		}

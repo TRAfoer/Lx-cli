@@ -11,7 +11,10 @@
 .\bin\Lx-Cli.exe --help
 .\bin\Lx-Cli.exe source add .\source.js
 .\bin\Lx-Cli.exe search '晴天' --source wy --json
+.\bin\Lx-Cli.exe queue play 3 --json
 ```
+
+`queue play <位置>` 按从 1 开始的位置播放现有队列中的歌曲，保留队列内容及顺序；重复歌曲按位置区分。
 
 跨平台构建：`go build -o bin/Lx-Cli ./cmd/lx-cli`。
 
