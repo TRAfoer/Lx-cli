@@ -1,0 +1,16 @@
+/bin/
+/dist/
+/Lx-Cli
+/lx-cli
+/alx/
+/data/
+/cache/
+/config.toml
+*.exe
+*.exe.bak
+*.test
+*.out
+*.db
+*.db-wal
+*.db-shm
+*.log
